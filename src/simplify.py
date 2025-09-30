@@ -1,5 +1,16 @@
 
 
+from collections import deque
+
 def simplify_path(path):
-    # TODO: use a stack of directory names to normalize an absolute path
-    raise NotImplementedError
+    stack = deque()
+    components = path.split('/')
+    
+    for component in components:
+        if component == '..':
+            if stack:
+                stack.pop()
+        elif component and component != '.':
+            stack.append(component)
+            
+    return '/' + '/'.join(stack)
